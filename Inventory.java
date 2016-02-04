@@ -12,11 +12,25 @@ public class Inventory {
 		this.weapon=weapon;
 	}
 	
-	public void getPotionArray(){
+	public Potion[] getPotionArray(){
 		return potionArray;
 	}
-	public Potion[] setPotionArray(Potion[] potionArray){
-		this.
+	public void setPotionArray(Potion[] potionArray){
+		this.potionArray=potionArray;
+	}
+	
+	public Enchantment[] getEnchantmentArray(){
+		return enchantmentArray;
+	}
+	public void setEnchantmentArray(Enchantment[] enchantmentArray){
+		this.enchantmentArray=enchantmentArray;
+	}
+	
+	public Weapon getWeapon(){
+		return weapon;
+	}
+	public void setWeapon(Weapon weapon){
+		this.weapon=weapon;
 	}
 	
 	
