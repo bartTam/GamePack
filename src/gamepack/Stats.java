@@ -127,7 +127,7 @@ class playerStats extends Stats {
 		//multiplies speed
 		private static final double SPEED_INCREASE = 1.5;
 
-//multiplies evade
+		//multiplies evade
 		private static final double EVADE_INCREASE = 1.5;
 		
 		//multiplies critical hit chance
@@ -185,7 +185,7 @@ class playerStats extends Stats {
 
 	public void healthRegen(){
 		if( status.healthRegen() )
-			setHealth( getHealth * HEALTH_REGEN_AMOUNT;
+			setHealth( getHealth() * HEALTH_REGEN_AMOUNT);
 	}
 
 	public void fatigueRegen(){

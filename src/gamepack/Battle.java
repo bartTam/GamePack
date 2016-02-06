@@ -23,24 +23,24 @@ public class Battle {
 	//chosen attacks will be increased once the getter method is used on weapon damage: ie. Use Powerful Attack: weapon.damageGetter()*100
 	
 	public double experienceGained(){
-		return antagonist.levelGetter(); //experience gained is enemy level
+		return antagonist.getLevel(); //experience gained is enemy level
 	}
 	
 	public void playerAttack(int input){//
-		Weapon attack = protagonist.weaponGetter();
-		double power = protagonist.powerGetter();
+		Weapon attack = protagonist.getWeapon();
+		double power = protagonist.getPower();
 		double accuracyCheck = Math.random();
 		double critCheck = Math.random();
-		double damage = attack.damageGetter();
-		double health = antagonist.healthGetter();
-		if(attack.accuracyGetter()>accuracyCheck){
-			if(attack.criticalGetter()>critCheck){
+		double damage = attack.getDamage();
+		double health = antagonist.getHealth();
+		if(attack.getAccuracy()>accuracyCheck){
+			if(attack.getCritical()>critCheck){
 				damage*=2;
 			}
 			health-=damage;
-			power-=attack.specialGetter();
-			antagonist.healthSetter(health);
-			protagonist.powerSetter(power);
+			power-=attack.getSpecial();
+			antagonist.setHealth(health);
+			protagonist.setPower(power);
 		}
 		else{
 			System.out.println("Miss");
@@ -55,20 +55,20 @@ public class Battle {
 	}
 	
 	public void npcAttack(){
-		Weapon attack = antagonist.weaponGetter();
-		double power = antagonist.powerGetter();
+		Weapon attack = antagonist.getWeapon();
+		double power = antagonist.getPower();
 		double accuracyCheck = Math.random();
 		double critCheck = Math.random();
-		double damage = attack.damageGetter();
-		double health = protagonist.healthGetter();
-		if(attack.accuracyGetter()>accuracyCheck){
-			if(attack.criticalGetter()>critCheck){
+		double damage = attack.getDamage();
+		double health = protagonist.getHealth();
+		if(attack.getAccuracy()>accuracyCheck){
+			if(attack.getCritical()>critCheck){
 				damage*=2;
 			}
 			health-=damage;
-			power-=attack.specialGetter();
-			protagonist.healthSetter(health);
-			antagonist.powerSetter(power);
+			power-=attack.getSpecial();
+			protagonist.setHealth(health);
+			antagonist.setPower(power);
 		}
 		else{
 			System.out.println("Miss");
@@ -76,16 +76,16 @@ public class Battle {
 	}
 	
 	public void printWeaponYell(Character input){
-		if(input.charTypeGetter().equals("Mage")){
+		if(input.getCharType().equals("Mage")){
 			
 		}
-		if(input.charTypeGetter().equals("Archer")){
+		if(input.getCharType().equals("Archer")){
 			
 		}
-		if(input.charTypeGetter().equals("Warrior")){
+		if(input.getCharType().equals("Warrior")){
 	
 		}
-		if(input.charTypeGetter().equals("Enemy")){
+		if(input.getCharType().equals("Enemy")){
 	
 		}
 	}

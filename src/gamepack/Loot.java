@@ -154,7 +154,7 @@ public class Loot {
 				else	if(weaponSuffix.equals(" of Poisoned Fortitude")){ damage *= 3;criticalChance *= 0.25;  }
 						//if none selected, then will pass through
 			
-			double playerPowerUse = weaponlessPlayer.powerGetter();
+			double playerPowerUse = weaponlessPlayer.getPower();
 			
 			playerPowerUse = Math.pow(playerPowerUse,.7);
 			//curve: y=x^0.7
@@ -192,7 +192,7 @@ public class Loot {
 				//			.9-1 accuracy
 				//			.1-.5 criticalChance
 				//			.75-1.4 special
-				if(weaponlessPlayer.charTypeGetter().equals("Mage")){
+				if(weaponlessPlayer.getCharType().equals("Mage")){
 	    //MAGE			
 				switch(override){
 				case 1: Weapon staff = new Weapon(15*damage*playerPowerUse,.96*accuracy,0.2*criticalChance,(1.1*special)-countDigits,weaponPrefix+" Staff "+weaponSuffix);

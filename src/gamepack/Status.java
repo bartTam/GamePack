@@ -17,7 +17,7 @@ public abstract class Status {
 		this.turnsRemaining = turnsRemaining;
 	}
 
-	public int getTurnsRemaining()}{
+	public int getTurnsRemaining(){
 		return turnsRemaining;
 	}
 
