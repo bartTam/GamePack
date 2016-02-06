@@ -50,6 +50,12 @@ public class Stats {
 		return health;
 	}
 
+	public boolean isAlive(){
+		return getHealth() > 0;
+	}
+	
+	
+	
 	public void setFatigue(int fatigue){
 		this.fatigue=fatigue;
 	}
@@ -98,6 +104,13 @@ public class Stats {
 	public double getCritDamage(){
 		return critDamage;
 	}
+	
+	public Stats generateStats(Player player){
+		//TODO: Auto-generate stats for any Character which needs Stats based on the Player
+		
+	}
+	
+	
 }
 
 

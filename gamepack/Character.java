@@ -1,14 +1,6 @@
 package gamepack;
 
 
-
-
-// This is very
-//unorganized
-//garbage
-
-
-
 /**
  * The character class that is the parent class for all characters. 
  * 
@@ -17,26 +9,8 @@ package gamepack;
  */
 public abstract class Character {
 	
-	// health: the charcter's hitpoints
-	private double health;
-	
-	// fatigue: the character's energy to attack
-	private int fatigue;
-	
-	// speed: the character's ability to attack first
-	private double speed;
-	
-	// evade: the chance the character will evade
-	private double evade;
-	
-	// charType: the character's type
+	//chartype: the type or kind of character being created, used as a categorization tool through naming
 	private String charType;
-	
-	// experience: the character's experience
-	private int experience;
-	
-	// weapon: the character's weapon
-	private Weapon weapon;
 	
 	// mapPoint: the coordinate on the map this character is located
 	private Point mapPoint;
@@ -47,25 +21,12 @@ public abstract class Character {
 	/**
 	 * This is the Character constructor.
 	 * 
-	 * @param health The character's hitpoints
-	 * @param fatigue the character's energy to attack
-	 * @param speed the character's ability to attack first
-	 * @param evade the chance the character will evade
 	 * @param charType the character's type
-	 * @param experience the character's experience
-	 * @param weapon the character's weapon
 	 * @param mapPoint the coordinate on the map this character is located
 	 * @param tileSetPoint the coordinate on the tileset this character is located
 	 */
-	public Character (double health, double power, double speed, double evade, String charType, int experience, 
-	         Weapon weapon, Point mapPoint, Point tileSetPoint){
-		this.health = health;
-		this.power = power;
-		this.speed = speed;
-		this.evade = evade;
+	public Character (String charType, Point mapPoint, Point tileSetPoint){
 		this.charType = charType;
-		this.level = level;
-		this.weapon = weapon;
 		this.mapPoint = mapPoint;
 		this.tileSetPoint = tileSetPoint;
 		
@@ -84,120 +45,76 @@ public abstract class Character {
 		tileSetPoint = tempPointArray[1];
 	}
 	
-//charType as follows: archer, mage, warrior	
+
 	/**
 	 * The toString
 	 */
 	public String toString(){
-		return (charType+" Level: "+level+"\nHealth: "+health+"\nPower: "+power+"\nSpeed: "+speed+"\nEvade: "+evade+"\n\nWeapon:\n"+weapon);
+		return "";
 	}
 	
-	//health  power  speed  evade  charType -- getters and setters
-	/**
-	 * The getter for health.
-	 * 
-	 * @return Returns the health of the character
-	 */
-	public double healthGetter() {
-		return health;
-	}
-	public void healthSetter(double healthInput) {
-		health = healthInput;
-	}
 	
-	/**
-	 * This method checks if the character is alive.
-	 * 
-	 * @return Returns true if the character is alive.
-	 */
-	public boolean isAlive(){
-		return healthGetter() > 0;
-	}
-	
-	public double powerGetter() {
-		return power;
-	}
-	public void powerSetter(double powerInput) {
-		power = powerInput;
-	}
-	
-	public double speedGetter() {
-		return speed;
-	}
-	public void speedSetter(double speedInput) {
-		speed = speedInput;
-	}
-	
-	public double evadeGetter() {
-		return evade;
-	}
-	public void evadeSetter(double evadeInput) {
-		evade = evadeInput;
-	}
-	
-	public String charTypeGetter() {
+	public String getCharType() {
 		return charType;
 	}
-	public void charTypeSetter(String charTypeInput) {
+	public void setCharType(String charTypeInput) {
 		charType = charTypeInput;
 	}
 	
-	public int levelGetter() {
-		return level;
-	}
-	public void levelSetter(int levelInput) {
-		level = levelInput;
-	}
-	
-	public Weapon weaponGetter() {
-		return weapon;
-	}
-	public void weaponSetter(Weapon weaponInput) {
-		weapon = weaponInput;
-	}
-	
-	public Point tileSetPointGetter(){
+	public Point getTileSetPoint(){
 		return tileSetPoint;
 	}
-	public void tileSetPointSetter(Point tileSetInput){
+	public void setTileSetPoint(Point tileSetInput){
 		tileSetPoint = tileSetInput;
 	}
 	
-	public Point mapPointGetter(){
+	public Point getMapPoint(){
 		return mapPoint;
 	}
-	public void mapPointSetter(Point mapPointInput){
+	public void setMapPoint(Point mapPointInput){
 		mapPoint = mapPointInput;
 	}
 	
 }
 
-//player and enemy classes extend character
+
 /**
  * The class of the character of the user. It adds potionList and a getter and setter to the character.
  * 
  * @author Bart and Jacob
+ * 
+ * @param inventory
+ * @param stats
+ * @param enchantment
  *
  */
 class Player extends Character {
-	private int experience;
-	private Potion[] potionList;
-	public Player(double health, double power, double speed, double evade, String charType, int level, Weapon weapon, int experience, Potion[] potionList,Point mapPoint,Point tileSetPoint) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint);
-		this.experience = experience;
-		this.potionList = potionList;
+	private Inventory inventory;
+	private Stats stats;
+	private Enchantment enchantment;
+	public Player(String charType,Point mapPoint,Point tileSetPoint,Inventory inventory,Stats stats, Enchantment enchantment) {
+		super(charType,mapPoint,tileSetPoint);
+		this.inventory=inventory;
+		this.stats=stats;
+		this.enchantment=enchantment;
 	}
 	public String toString(){
-		return (charTypeGetter()+" Level: "+levelGetter()+" XP: "+experience+"\nHealth: "+healthGetter()+"\nPower: "+powerGetter()+"\nSpeed: "+speedGetter()+"\nEvade: "+evadeGetter()+"\n\nWeapon:\n"+weaponGetter());
+		return "";
 	}
 	
-	public Potion[] getPotionList(){
-		return potionList;
+	public Inventory getInventory(){
+		return inventory;
 	}
-	public void setPotion(Potion[] inList){
-		potionList = inList;
+	
+	public Stats getStats(){
+		return stats;
 	}
-	//TODO Accessor, Mutator, and incrementor for experience.
+	
+	public Enchantment getEnchantment(){
+		return enchantment;
+	}
+	
+	//TODO Accessor, Mutator, and incrementor
 }
 
 /**
@@ -208,36 +125,22 @@ class Player extends Character {
  */
 abstract class NonPlayerCharacter extends Character{
 	
-	// tileNum: TODO: Figure out what it is
-	private int tileNum;
-	
 	// talk: The message from the npc
 	private String talk;
 	
 	/**
 	 * 
-	 * @param health
-	 * @param power
-	 * @param speed
-	 * @param evade
 	 * @param charType
-	 * @param level
-	 * @param weapon
 	 * @param mapPoint
 	 * @param tileSetPoint
 	 * @param tileNum
 	 * @param talk
 	 */
-	public NonPlayerCharacter(double health, double power, double speed, double evade, String charType, int level, Weapon weapon,Point mapPoint,Point tileSetPoint,int tileNum,String talk) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint);
-		this.tileNum = tileNum;
+	public NonPlayerCharacter(String charType,Point mapPoint,Point tileSetPoint,String talk) {
+		super(charType,mapPoint,tileSetPoint);
 		this.talk = talk;
 	}
 	
-	
-	public int getTileNum(){
-		return tileNum;
-	}
 	public String getTalk(){
 		return talk;
 	}
@@ -249,9 +152,24 @@ abstract class NonPlayerCharacter extends Character{
 //array of all NPCs in the game to find NonPlayerCharacter
 
 class Enemy extends NonPlayerCharacter{
-	public Enemy(double health, double power, double speed, double evade, String charType, int level, Weapon weapon,Point mapPoint,Point tileSetPoint,int tileNum,String talk) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint,tileNum,talk);
-	}	
+	public Enemy(String charType,Point mapPoint,Point tileSetPoint,String talk) {
+		super(charType,mapPoint,tileSetPoint);
+	}
+	
+//left off doing some basic edits VISUAL SIGNPOST
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void action(){
 		System.out.println(getTalk());
 		// TODO:initiate battle
@@ -283,6 +201,8 @@ class Teleporter extends NonPlayerCharacter{
 	}
 	public void action(){
 		System.out.println(getTalk());
+		
+		//TODO: initiate battle with Player
 		//TODO: initiate Teleport to new zone/map.
 	}
 }
