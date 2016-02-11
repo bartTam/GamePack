@@ -107,7 +107,7 @@ public class Stats {
 	
 	public Stats generateStats(Player player){
 		//TODO: Auto-generate stats for any Character which needs Stats based on the Player
-		
+		return null;
 	}
 	
 	
@@ -143,53 +143,63 @@ class playerStats extends Stats {
 		private static final int FATIGUE_REGEN_AMOUNT= 5;
 
 		//multiplies experience gained
-		private final double INCREASE_EXPERIENCE_GAINED = 2;
+		private static final double INCREASE_EXPERIENCE_GAINED = 2;
 
-	public playerStats(int health, int fatigue, int speed, double evade, int experience) {
+	public playerStats(int health, int fatigue, int speed, double evade, int experience, int damage, double critChance, double critDamage) {
 		
-		super(health,fatigue,speed,evade,experience);
+		super(health,fatigue,speed,evade,experience,damage,critChance,critDamage);
 		
 	}
 	
 	//parameter use
-	public void takeReducedDamage(int damage){
-		if( status.reduceDamage() )
+	/**
+	 * If you drink reduce damage potion, reduce damage taken from Enemy.
+	 * Check if the correct potion was used and check if that potion is active
+	 * @param damage incoming damage
+	 */
+	public void takeReducedDamage(int damage,Potion potion){
+		if( potion.getName().equals("Damage Taken Reduction Potion") && potion.getIsActive() )
 			setHealth( getHealth() - (int)( damage / REDUCE_DAMAGE_TAKEN ) );	
 		
 	}
 
-	public int giveIncreasedDamage(){
-		if( status.increaseDamage() )
+	public int giveIncreasedDamage(Potion potion){
+		if( potion.getName().equals("Damage Given Increase Potion") && potion.getIsActive() )
 			return  (int)(getDamage() * INCREASE_DAMAGE_GIVEN);
+		return -1;
 	}
 
-	public int increaseSpeed(){
-		if( status.increaseSpeed() )
+	public int increaseSpeed(Potion potion){
+		if( potion.getName().equals("Speed Increase Potion") && potion.getIsActive() )
 			return (int)(getSpeed() * SPEED_INCREASE);
+		return -1;
 	}
 
-	public double increaseEvade(){
-		if( status.increaseEvade() )
+	public double increaseEvadePotion(Potion potion){
+		if( potion.getName().equals("Evade Increase Potion") && potion.getIsActive() )
 			return getEvade() * EVADE_INCREASE;
+		return -1;
 	}
 	
-	public double critChanceIncrease(){
-		if( status.critChanceIncrease() )
+	public double critChanceIncrease(Potion potion){
+		if (potion.getName().equals("Crit Chance Increase Potion") && potion.getIsActive() )
 			return getCritChance() * CRIT_CHANCE_INCREASE;
+		return -1;
 	}
 
-	public double critDamageIncrease(){
-		if( status.critDamageIncreaes() )
+	public double critDamageIncrease(Potion potion){
+		if( potion.getName().equals("Crit Damage Increase Potion") && potion.getIsActive() )
 			return getCritDamage() * CRIT_DAMAGE_INCREASE;
+		return -1;
 	}
 
-	public void healthRegen(){
-		if( status.healthRegen() )
-			setHealth( getHealth() * HEALTH_REGEN_AMOUNT);
+	public void healthRegen(Potion potion){
+		if( potion.getName().equals("Health Regen Potion") && potion.getIsActive() )
+			setHealth( (int) ( getHealth() * HEALTH_REGEN_AMOUNT) );
 	}
 
-	public void fatigueRegen(){
-		if( status.fatigueRegen() ){
+	public void fatigueRegen(Potion potion){
+		if( potion.getName().equals("Fatigue Regen Potion") && potion.getIsActive() ){
 			if( getFatigue() + FATIGUE_REGEN_AMOUNT >100){
 				setFatigue(100);
 			}
@@ -200,8 +210,9 @@ class playerStats extends Stats {
 			
 	}
 
-	public int increaseExperience(int experience){
-		if( status.increaseExperience() )
+	public int increaseExperience(int experience,Potion potion){
+		if( potion.getName().equals("Double Experience Potion") && potion.getIsActive() )
 			setExperience( getExperience() + (int)( experience*INCREASE_EXPERIENCE_GAINED ) );
+		return -1;
 	}
 }

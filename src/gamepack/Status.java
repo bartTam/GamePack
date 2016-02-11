@@ -1,6 +1,7 @@
 package gamepack;
 
 //is a mess
+//ignore status is for enchantments still todo
 
 public abstract class Status {
 
@@ -11,7 +12,7 @@ public abstract class Status {
 		this.turnsRemaining = turnsRemaining;
 	}
 
-	public abstract void inflictStatus();
+	public abstract void inflictStatus(Player player);
 
 	public void setTurnsRemaining(int turnsRemaining){
 		this.turnsRemaining = turnsRemaining;
@@ -20,10 +21,14 @@ public abstract class Status {
 	public int getTurnsRemaining(){
 		return turnsRemaining;
 	}
+	
+	public boolean statusActive(){
+		return turnsRemaining>0;
+	}
 
 }
 
-class DamageReductionStatus {
+class DamageReductionStatus extends Status {
 
 	public DamageReductionStatus(int turnsRemaining){
 		super(turnsRemaining);	
@@ -35,7 +40,7 @@ class DamageReductionStatus {
 
 }
 
-class SpeedIncrease{
+class SpeedIncrease extends Status{
 
 	public SpeedIncrease(int turnsRemaining){
 		super(turnsRemaining);	

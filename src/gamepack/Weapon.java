@@ -9,7 +9,7 @@ package gamepack;
 public class Weapon extends Item {
 	
 	
-	private double damage,accuracy,criticalChance,fatigue;
+	private int fatigue;
 	private int damage;
 	private double accuracy;
 	private double criticalChance;
@@ -34,13 +34,13 @@ public class Weapon extends Item {
 		this.weaponType = weaponType;
 	}
 	public String toString(){
-		return (type+"\nDamage: "+damage+"\nAccuracy: "+(accuracy*100)+"%\nCritical Chance: "+(criticalChance*100)+"%\nFatigue: "+(Fatigue*100)+"%");
+		return (weaponType+"\nDamage: "+damage+"\nAccuracy: "+(accuracy*100)+"%\nCritical Chance: "+(criticalChance*100)+"%\nFatigue: "+(fatigue*100)+"%");
 	}
 //how much damage the weapon will increase based on player power	
 	public double getDamage() {
 		return damage;
 	}
-	public void setDamage(double damageInput) {
+	public void setDamage(int damageInput) {
 		damage = damageInput;
 	}
 //how accurate the weapon is	
@@ -61,7 +61,7 @@ public class Weapon extends Item {
 	public int getFatigue(){
 		return fatigue;
 	}
-	public void setFatigue(double fatigueInput){
+	public void setFatigue(int fatigueInput){
 		fatigue= fatigueInput;
 	}
 //what kind of weapon it is	
