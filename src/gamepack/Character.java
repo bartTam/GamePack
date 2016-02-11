@@ -5,7 +5,17 @@ package gamepack;
  * The character class that is the parent class for all characters. 
  * 
  * @author Bart and Jacob
- *
+ * 
+ * Outline:
+ * Character
+ * 		Player
+ * 		Enemy
+ * 			Baddie
+ * 			Teleporter
+ * 		NonPlayerCharacter
+ * 			Person
+ * 			Healer
+ * 
  */
 public abstract class Character {
 	
@@ -90,28 +100,29 @@ public abstract class Character {
  */
 class Player extends Character {
 	private Inventory inventory;
-	private Stats stats;
-	private Enchantment enchantment;
-	public Player(String charType,Point mapPoint,Point tileSetPoint,Inventory inventory,Stats stats, Enchantment enchantment) {
+	private playerStats stats;
+	public Player(String charType,Point mapPoint,Point tileSetPoint,Inventory inventory,playerStats stats) {
 		super(charType,mapPoint,tileSetPoint);
 		this.inventory=inventory;
 		this.stats=stats;
-		this.enchantment=enchantment;
 	}
 	public String toString(){
 		return "";
 	}
 	
+	public void setInventory(Inventory inventory){
+		this.inventory=inventory;
+	}
 	public Inventory getInventory(){
 		return inventory;
 	}
 	
-	public Stats getStats(){
-		return stats;
-	}
 	
-	public Enchantment getEnchantment(){
-		return enchantment;
+	public void setStats(playerStats stats){
+		this.stats=stats;
+	}
+	public playerStats getStats(){
+		return stats;
 	}
 	
 	//TODO Accessor, Mutator, and incrementor
@@ -123,21 +134,56 @@ class Player extends Character {
  * @author Bart and Jacob
  *
  */
-abstract class NonPlayerCharacter extends Character{
-	
-	// talk: The message from the npc
-	private String talk;
+abstract class Enemy extends Character{
 	
 	/**
-	 * 
-	 * @param charType
-	 * @param mapPoint
-	 * @param tileSetPoint
-	 * @param tileNum
-	 * @param talk
+	 * @param stats the stats for the Enemy
+	 * @param talk what the Enemy says
 	 */
-	public NonPlayerCharacter(String charType,Point mapPoint,Point tileSetPoint,String talk) {
+	
+	//the stats to keep track of during a battle
+	private Stats stats;
+	
+	//what the enemy says of an encounter (after/before)
+	private String talk;
+	
+	//an Enemy does not have an inventory but rather carries the weapon separately
+	private Weapon weapon;
+	
+	public Enemy(String charType,Point mapPoint,Point tileSetPoint,String talk,Stats stats,Weapon weapon) {
 		super(charType,mapPoint,tileSetPoint);
+		this.talk = talk;
+		this.stats=stats;
+		this.weapon=weapon;
+	}
+	
+	public String getTalk(){
+		return talk;
+	}
+	
+	public void setStats(Stats stats){
+		this.stats=stats;
+	}
+	public Stats getStats(){
+		return stats;
+	}
+	
+	public void setWeapon(Weapon weapon){
+		this.weapon=weapon;
+	}
+	public Weapon getWeapon(){
+		return weapon;
+	}
+	
+	public abstract void action();
+}
+
+abstract class NonPlayerCharacter extends Character{
+	
+	private String talk;
+	
+	public NonPlayerCharacter(String charType, Point mapPoint, Point tileSetPoint, String talk) {
+		super(charType, mapPoint, tileSetPoint);
 		this.talk = talk;
 	}
 	
@@ -145,59 +191,29 @@ abstract class NonPlayerCharacter extends Character{
 		return talk;
 	}
 	
+	public void setTalk(String talk){
+		this.talk=talk;
+	}
+	
 	public abstract void action();
 }
 
-//extend npc for enemy with attacking action or npc etc
-//array of all NPCs in the game to find NonPlayerCharacter
-
-class Enemy extends NonPlayerCharacter{
-	public Enemy(String charType,Point mapPoint,Point tileSetPoint,String talk) {
-		super(charType,mapPoint,tileSetPoint);
+class Baddie extends Enemy{
+	
+	public Baddie(String charType,Point mapPoint,Point tileSetPoint,String talk,Stats stats,Weapon weapon) {
+		super(charType,mapPoint,tileSetPoint,talk,stats,weapon);
 	}
-	
-//left off doing some basic edits VISUAL SIGNPOST
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	public void action(){
 		System.out.println(getTalk());
 		// TODO:initiate battle
 	}
 }
 
-class Person extends NonPlayerCharacter{
-	public Person(double health, double power, double speed, double evade, String charType, int level, Weapon weapon,Point mapPoint,Point tileSetPoint,int tileNum,String talk) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint,tileNum,talk);
-	}
-	public void action(){
-		System.out.println(getTalk());
-	}
-}
-class Healer extends NonPlayerCharacter{
-	public Healer(double health, double power, double speed, double evade, String charType, int level, Weapon weapon,Point mapPoint,Point tileSetPoint,int tileNum,String talk) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint,tileNum,talk);
-	}
-	public void action(){
-		System.out.println(getTalk());
-		//TODO: initiate heals
-		//scanner 
-		//1. Heal (cost,gain)  2. Leave
-	}
-}
-class Teleporter extends NonPlayerCharacter{
-	public Teleporter(double health, double power, double speed, double evade, String charType, int level, Weapon weapon,Point mapPoint,Point tileSetPoint,int tileNum,String talk) {
-		super(health,power,speed,evade,charType,level,weapon,mapPoint,tileSetPoint,tileNum,talk);
+class Teleporter extends Enemy{
+	
+	public Teleporter(String charType,Point mapPoint,Point tileSetPoint,String talk,Stats stats,Weapon weapon) {
+		super(charType,mapPoint,tileSetPoint,talk,stats,weapon);
 	}
 	public void action(){
 		System.out.println(getTalk());
@@ -206,4 +222,26 @@ class Teleporter extends NonPlayerCharacter{
 		//TODO: initiate Teleport to new zone/map.
 	}
 }
+
+class Person extends NonPlayerCharacter{
+	public Person(String charType,Point mapPoint,Point tileSetPoint,String talk) {
+		super(charType,mapPoint,tileSetPoint,talk);
+	}
+	public void action(){
+		System.out.println(this.getTalk());
+	}
+}
+
+class Healer extends NonPlayerCharacter{
+	public Healer(String charType,Point mapPoint,Point tileSetPoint,String talk) {
+		super(charType,mapPoint,tileSetPoint,talk);
+	}
+	public void action(){
+		System.out.println(getTalk());
+		//TODO: initiate heals
+		//scanner 
+		//1. Heal (cost,gain)  2. Leave
+	}
+}
+
 
