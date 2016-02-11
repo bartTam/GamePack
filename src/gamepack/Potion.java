@@ -9,14 +9,21 @@ public abstract class Potion extends Item{
 	private int amount;
 	
 	private String name;
-	public Potion (int amount, String name){
+	
+	private boolean isActive;
+	
+	private int turnsRemaining;
+	
+	public Potion (int amount, String name, boolean isActive, int turnsRemaining){
 
 		this.amount = amount;
 		this.name = name;
+		this.isActive = isActive;
+		this.turnsRemaining = turnsRemaining;
 	}
 //toString
 	public String toString(){
-		return amount+" "+name+";
+		return amount+" "+name;
 	}
 	
 //amount	
@@ -24,7 +31,7 @@ public abstract class Potion extends Item{
 		return amount;
 	}
 	public void setAmount(int amountInput){
-		deltaHealth = amountInput;
+		amount = amountInput;
 	}
 //name	
 	public String getName(){
@@ -33,6 +40,27 @@ public abstract class Potion extends Item{
 	public void setName(String nameInput){
 		name = nameInput;
 	}
+//isActive
+	public boolean getIsActive(){
+		return isActive;
+	}
+	public void setIsActive(boolean isActive){
+		this.isActive=isActive;
+	}
+//turnsRemaining
+	public int getTurnsRemaining(){
+		return turnsRemaining;
+	}
+	public void setTurnsRemaining(int turnsRemaining){
+		this.turnsRemaining = turnsRemaining;
+	}
+	public void drinkRegenPotion(){
+		this.turnsRemaining+=5;
+	}
+	public void drinkRegularPotion(){
+		this.turnsRemaining+=2;
+	}
+
 	
 //obtain potion  increments the amount of potions owned by the type named by the amount given
 	public static Potion obtainPotion(Potion pickUp, Potion inInventory){
@@ -46,116 +74,78 @@ public abstract class Potion extends Item{
 		inInventory.setAmount(inInventory.getAmount()-1);
 		return inInventory;
 	}
-
-	public abstract void inflictStatus();
 }
 
 //each potion type will have its own subclass
 
 class damageTakenReductionPotion extends Potion {
 	
-	public damageTakenReductionPotion(int amount, String name){
-		super(amount,name);
+	public damageTakenReductionPotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Damage Taken Reduction Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class speedIncreasePotion extends Potion {
 	
-	public speedIncreasePotion(int amount, String name){
-		super(amount,name);
+	public speedIncreasePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Speed Increase Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class critChanceIncreasePotion extends Potion {
 	
-	public critChanceIncreasePotion(int amount, String name){
-		super(amount,name);
+	public critChanceIncreasePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Crit Chance Increase Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class healthRegenPotion extends Potion {
 	
-	public healthRegenPotion(int amount, String name){
-		super(amount,name);
+	public healthRegenPotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Health Regen Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class evadeIncreasePotion extends Potion {
 	
-	public evadeIncreasePotion(int amount, String name){
-		super(amount,name);
+	public evadeIncreasePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Evade Increase Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class damageGivenIncreasePotion extends Potion {
 	
-	public damageGivenIncreasePotion(int amount, String name){
-		super(amount,name);
+	public damageGivenIncreasePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Damage Given Increase Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class critDamageIncreasePotion extends Potion {
 	
-	public critDamageIncreasePotion(int amount, String name){
-		super(amount,name);
+	public critDamageIncreasePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Crit Damage Increase Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class fatigueRegenPotion extends Potion {
 	
-	public fatigueRegenPotion(int amount, String name){
-		super(amount,name);
+	public fatigueRegenPotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Fatigue Regen Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
 
 class doubleExperiencePotion extends Potion {
 	
-	public doubleExperiencePotion(int amount, String name){
-		super(amount,name);
+	public doubleExperiencePotion(int amount, String name, boolean isActive,int turnsRemaining){
+		super(amount,name,isActive,turnsRemaining);
+		name = "Double Experience Potion";
 	}
-	
-	public void inflictStatus(Player player){
-		
-	}
-
 }
